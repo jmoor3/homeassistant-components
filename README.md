@@ -1,13 +1,12 @@
 # homeassistant-components
 
-# Mitsubishi MQTT AC Split Duct
+## Mitsubishi MQTT AC Split Duct
 
 https://github.com/SwiCago/HeatPump
 
 custom_components/climate/mitsubishi_mqtt.py
 
-
-# Balboa Hot Tub
+## Balboa Hot Tub
 
 Adds Balboa Hot Tub support. Copy the files from the directories into your homeassistant directory.
 
