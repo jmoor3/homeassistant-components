@@ -6,6 +6,11 @@ https://github.com/SwiCago/HeatPump
 
 custom_components/climate/mitsubishi_mqtt.py
 
+## Needed python modules
+
+Make sure the CRC8 module is installed by running the following command on your homeassistant server: 
+pip install crc8
+
 ## Balboa Hot Tub
 
 Adds Balboa Hot Tub support. Copy the files from the directories into your homeassistant directory.
