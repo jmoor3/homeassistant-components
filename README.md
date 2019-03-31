@@ -10,7 +10,7 @@ pip install crc8
 
 ## Balboa Hot Tub
 
-Adds Balboa Hot Tub support. Copy the files from the directories into your homeassistant directory.
+Copy the files from the directories into your homeassistant directory.
 
 ```
 custom_components/climate/my_bwa.py
