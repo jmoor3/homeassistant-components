@@ -13,11 +13,11 @@ pip install crc8
 Copy the files from the directories into your homeassistant directory.
 
 ```
-custom_components/climate/my_bwa.py
-custom_components/light/my_bwa.py
-custom_components/switch/my_bwa.py
-custom_components/my_bwa.py
-custom_components/spaclient.py
+custom_components/my_bwa/__init__.py
+custom_components/my_bwa/climate.py
+custom_components/my_bwa/light.py
+custom_components/my_bwa/spaclient.py
+custom_components/my_bwa/switch.py
 ```
 
 congifuration.yaml file entry:
