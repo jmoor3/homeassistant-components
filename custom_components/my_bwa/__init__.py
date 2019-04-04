@@ -3,7 +3,7 @@ import os
 from datetime import timedelta
 import voluptuous as vol
 
-from custom_components.my_bwa.spaclient import SpaClient
+from .spaclient import SpaClient
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers import discovery
 from homeassistant.const import (CONF_API_KEY, CONF_SCAN_INTERVAL)
