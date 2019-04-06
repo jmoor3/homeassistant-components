@@ -1,26 +1,25 @@
 import logging
-import os
-from datetime import timedelta
-import voluptuous as vol
 
-from .spaclient import SpaClient
+import voluptuous as vol
 import homeassistant.helpers.config_validation as cv
+
+# Import the device class from the component that you want to support
+from .spaclient import SpaClient
 from homeassistant.helpers import discovery
-from homeassistant.const import (CONF_API_KEY, CONF_SCAN_INTERVAL)
-from homeassistant.util import Throttle
-from homeassistant.util.json import save_json
+from homeassistant.const import CONF_SCAN_INTERVAL
+from datetime import timedelta
 
 _CONFIGURING = {}
 _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = 'my_bwa'
 
-MIN_TIME_BETWEEN_UPDATES = timedelta(seconds=1)
-SCAN_INTERVAL = timedelta(seconds=1)
+SCAN_INTERVAL = timedelta(seconds=10)
 
 NETWORK = None
 
 CONF_HOST_IP = "spa_ip"
+
 CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
         vol.Required(CONF_HOST_IP): cv.string,
@@ -31,7 +30,6 @@ CONFIG_SCHEMA = vol.Schema({
 def setup_spa(hass, config):
     """Set up the Balboa Spa."""
     conf = config[DOMAIN]
-    # scan_interval = conf[CONF_SCAN_INTERVAL]
 
     discovery.load_platform(hass, 'climate', DOMAIN, conf, config)
     discovery.load_platform(hass, 'light', DOMAIN, conf, config)
@@ -42,7 +40,6 @@ class SpaData(object):
     def __init__(self, host_ip):
         self.spa = SpaClient(SpaClient.get_socket(host_ip))
 
-    @Throttle(MIN_TIME_BETWEEN_UPDATES)
     def update(self):
         """Fetch new state data for the sensor."""
         self.spa.read_all_msg()
@@ -50,7 +47,6 @@ class SpaData(object):
 
 def setup(hass, config):
     """Set up the Spa."""
-    # pylint: disable=global-statement, import-error
     global NETWORK
 
     conf = config[DOMAIN]

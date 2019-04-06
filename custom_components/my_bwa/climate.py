@@ -1,17 +1,12 @@
-from datetime import timedelta
 import logging
-import voluptuous as vol
 
 # Import the device class from the component that you want to support
-from homeassistant.helpers.entity import Entity
-
 from custom_components import my_bwa
-
-# Import the device class from the component that you want to support
 from homeassistant.components.climate import ClimateDevice
 from homeassistant.components.climate.const import SUPPORT_TARGET_TEMPERATURE
 from homeassistant.const import ATTR_TEMPERATURE, TEMP_FAHRENHEIT
 from homeassistant.util.temperature import convert as convert_temperature
+from datetime import timedelta
 
 _LOGGER = logging.getLogger(__name__)
 SCAN_INTERVAL = timedelta(seconds=1)

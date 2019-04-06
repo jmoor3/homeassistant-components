@@ -1,14 +1,9 @@
 import logging
 
-from datetime import timedelta
-
 # Import the device class from the component that you want to support
-from homeassistant.helpers.entity import Entity
-
 from custom_components import my_bwa
-
-# Import the device class from the component that you want to support
 from homeassistant.components.switch import SwitchDevice
+from datetime import timedelta
 
 _LOGGER = logging.getLogger(__name__)
 SCAN_INTERVAL = timedelta(seconds=1)
@@ -47,19 +42,19 @@ class SpaPump(SwitchDevice):
 
     @property
     def is_on(self):
-        """Return true if light is on."""
+        """Return true if switch is on."""
         return self._spa.get_pump(self._pump_num) != "Off"
 
     def turn_on(self, **kwargs):
-        """Instruct the light to turn on."""
-        _LOGGER.info("Turning on Spa Light")
-        _LOGGER.info("Spa pump status %s", self._spa.get_pump(self._pump_num))
+        """Instruct the switch to turn on."""
+        _LOGGER.info("Turning on Spa Pump")
+        _LOGGER.info("Spa Pump status %s", self._spa.get_pump(self._pump_num))
         self._spa.set_pump(self._pump_num, "High")
 
     def turn_off(self, **kwargs):
-        """Instruct the light to turn off."""
-        _LOGGER.info("Turning off Spa Light")
-        _LOGGER.info("Spa light status %s", self._spa.get_pump(self._pump_num))
+        """Instruct the switch to turn off."""
+        _LOGGER.info("Turning off Spa Pump")
+        _LOGGER.info("Spa Pump status %s", self._spa.get_pump(self._pump_num))
         self._spa.set_pump(self._pump_num, "Off")
 
     def update(self):

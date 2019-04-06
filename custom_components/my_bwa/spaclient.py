@@ -1,11 +1,12 @@
-import crc8
 import logging
+import crc8
 import socket
 import time
 
+# Import the device class from the component that you want to support
 from threading import Lock
 
-LOGGER = logging.getLogger(__name__)
+_LOGGER = logging.getLogger(__name__)
 
 class SpaClient:
     def __init__(self, socket):
@@ -49,7 +50,6 @@ class SpaClient:
     def handle_status_update(self, byte_array):
         self.current_temp = byte_array[2]
         self.priming = byte_array[1] & 0x01 == 1
-
         self.hour = byte_array[3]
         self.minute = byte_array[4]
         self.heating_mode = \
@@ -137,16 +137,14 @@ class SpaClient:
         try:
             chunk = SpaClient.s.recv(length)
         except BaseException as e:
-            LOGGER.error("Failed to receive: len_chunk: %s, error: %s",
+            _LOGGER.error("Failed to receive: len_chunk: %s, error: %s",
                          len_chunk, e)
             SpaClient.l.release()
             return False
 
         SpaClient.l.release()
 
-        # Status update prefix
         if chunk[0:3] == b'\xff\xaf\x13':
-            # print("Status Update")
             self.handle_status_update(chunk[3:])
 
         return True
@@ -165,7 +163,7 @@ class SpaClient:
         try:
             SpaClient.s.send(message)
         except IOError as e:
-            LOGGER.error("Lost connection, error: %s", e)
+            _LOGGER.error("Lost connection, error: %s", e)
             SpaClient.s = SpaClient.reconnect_socket()
             SpaClient.s.send(message)
 
@@ -173,13 +171,6 @@ class SpaClient:
         self.send_message(b'\x0a\xbf\x04', bytes([]))
 
     def send_toggle_message(self, item):
-        # 0x04 - pump 1
-        # 0x05 - pump 2
-        # 0x06 - pump 3
-        # 0x11 - light 1
-        # 0x51 - heating mode
-        # 0x50 - temperature range
-
         self.send_message(b'\x0a\xbf\x11', bytes([item]) + b'\x00')
 
     def set_temperature(self, temp):
