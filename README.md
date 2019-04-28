@@ -1,4 +1,4 @@
-# homeassistant-components
+# homeassistant custom components - my_bwa
 
 ## Needed python modules
 
