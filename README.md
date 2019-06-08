@@ -1,12 +1,8 @@
-# homeassistant custom components - my_bwa
+# Hass.io custom components - my_bwa
 
-## Needed python modules
+## Needed python module
 
-Make sure the CRC8 module is installed by running the following command on your homeassistant server: 
-
-```
-pip install crc8
-```
+The 'crc8' module is automatically installed when first used of this custom component on Hass.io.
 
 ## Balboa Hot Tub
 
