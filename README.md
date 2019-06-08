@@ -1,4 +1,4 @@
-# Hass.io custom components - my_bwa
+# Hass.io custom component - my_bwa
 
 ## Needed python module
 
