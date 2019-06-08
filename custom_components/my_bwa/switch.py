@@ -47,14 +47,17 @@ class SpaPump(SwitchDevice):
 
     def turn_on(self, **kwargs):
         """Instruct the switch to turn on."""
-        _LOGGER.info("Turning on Spa Pump")
-        _LOGGER.info("Spa Pump status %s", self._spa.get_pump(self._pump_num))
+        _LOGGER.info("Spa Pump %s status %s", self._pump_num, self._spa.get_pump(self._pump_num))
+        _LOGGER.info("Turning on Spa Pump %s", self._pump_num)
         self._spa.set_pump(self._pump_num, "High")
 
     def turn_off(self, **kwargs):
         """Instruct the switch to turn off."""
-        _LOGGER.info("Turning off Spa Pump")
-        _LOGGER.info("Spa Pump status %s", self._spa.get_pump(self._pump_num))
+        _LOGGER.info("Spa Pump %s status %s", self._pump_num, self._spa.get_pump(self._pump_num))
+        if self._spa.get_pump(self._pump_num) == "Low":
+            _LOGGER.info("Turning on Spa Pump %s", self._pump_num)
+        if self._spa.get_pump(self._pump_num) == "High":
+            _LOGGER.info("Turning off Spa Pump %s", self._pump_num)
         self._spa.set_pump(self._pump_num, "Off")
 
     def update(self):

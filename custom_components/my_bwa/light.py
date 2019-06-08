@@ -32,14 +32,14 @@ class SpaLight(Light):
     def turn_on(self, **kwargs):
         """Instruct the light to turn on."""
         _LOGGER.info("Turning on Spa Light")
-        _LOGGER.info("Spa Light status %s", self._spa.get_light())
         self._spa.set_light(True)
+        _LOGGER.info("Spa Light status %s", self._spa.get_light())
 
     def turn_off(self, **kwargs):
         """Instruct the light to turn off."""
         _LOGGER.info("Turning off Spa Light")
-        _LOGGER.info("Spa Light status %s", self._spa.get_light())
         self._spa.set_light(False)
+        _LOGGER.info("Spa Light status %s", self._spa.get_light())
 
     def update(self):
         """Fetch new state data for the sensor."""
