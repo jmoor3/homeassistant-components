@@ -2,7 +2,7 @@
 
 ## Needed python module
 
-The 'crc8' module is automatically installed when first used of this custom component on Hass.io.
+The ```crc8``` module is automatically installed when first used of this custom component on Hass.io.
 
 ## Balboa Hot Tub
 
