@@ -1,0 +1,8 @@
+{
+  "domain": "my_bwa",
+  "name": "Spa Client",
+  "documentation": "https://github.com/plmilord/Hass.io-custom-component-my_bwa/blob/master/README.md",
+  "dependencies": [],
+  "codeowners": ["jmoor3/plmilord"],
+  "requirements": ["crc8==0.0.5"]
+}

@@ -9,9 +9,6 @@ from homeassistant.helpers import discovery
 from homeassistant.const import CONF_SCAN_INTERVAL
 from datetime import timedelta
 
-# Home Assistant depends on 3rd party packages for API specific code.
-REQUIREMENTS = ['crc8==0.0.5']
-
 _LOGGER = logging.getLogger(__name__)
 SCAN_INTERVAL = timedelta(seconds=1)
 
