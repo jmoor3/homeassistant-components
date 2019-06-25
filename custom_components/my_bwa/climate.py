@@ -9,7 +9,7 @@ from homeassistant.util.temperature import convert as convert_temperature
 from datetime import timedelta
 
 _LOGGER = logging.getLogger(__name__)
-SCAN_INTERVAL = timedelta(seconds=1)
+SCAN_INTERVAL = my_bwa.INTERVAL
 
 SUPPORT_FLAGS = (SUPPORT_TARGET_TEMPERATURE)
 

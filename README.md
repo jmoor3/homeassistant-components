@@ -20,14 +20,14 @@ custom_components/my_bwa/switch.py
 congifuration.yaml file entry:
 ```
 my_bwa:
-     #scan_interval: 1   # Poll the device every x seconds instead of the default 30 seconds
-     #nb_pump: 3         # Spa pump count (1, 2 or 3)
-     #nb_toggle: 1       # Number of toggles to action the pumps (1 or 2)
-     spa_ip: 192.168.0.150
+     spa_ip: 192.168.2.150 # Spa IP-adress, Required
+     nb_toggle: 1          # 1 or 2 toggle to action the pumps (default = 1), Optional
+     scan_interval: 1      # Poll the devices every x seconds (default = 1), Optional
 ```     
      
 TODOs:
-- Make the code to use the parameters scan_interval, nb_pump, nb_toggle
-- Find the right place for spaclient and factor out the data into a separate class
-- Support more functionality like toggling heating mode
-- Make states of various components into enums, support cycling through states better
+- Create a ```const.py``` file
+- Introduce asynchronous programming in this custom component
+- Add the programming capacity of the filter cycles
+- Add the time synchronization function
+- Bring more information to the user in case of connect/receive/send issues

@@ -10,14 +10,15 @@ from homeassistant.const import CONF_SCAN_INTERVAL
 from datetime import timedelta
 
 _LOGGER = logging.getLogger(__name__)
-SCAN_INTERVAL = timedelta(seconds=1)
 
 DOMAIN = 'my_bwa'
-CONF_HOST_IP = "spa_ip"
+ATTR_HOST_IP = 'spa_ip'
+ATTR_NB_TOGGLE = 'nb_toggle'
 
 CONFIG_SCHEMA = vol.Schema({
     DOMAIN: vol.Schema({
-        vol.Required(CONF_HOST_IP): cv.string,
+        vol.Required(ATTR_HOST_IP): cv.string,
+        vol.Optional(ATTR_NB_TOGGLE, default=1): cv.positive_int,
         vol.Optional(CONF_SCAN_INTERVAL, default=1): cv.positive_int,
     })
 }, extra=vol.ALLOW_EXTRA)
@@ -25,10 +26,14 @@ CONFIG_SCHEMA = vol.Schema({
 def setup(hass, config):
     """Set up the Spa."""
     global NETWORK
+    global NB_TOGGLE
+    global INTERVAL
 
     conf = config[DOMAIN]
-    host_ip = conf[CONF_HOST_IP]
+    host_ip = conf[ATTR_HOST_IP]
     NETWORK = SpaData(host_ip)
+    NB_TOGGLE = conf[ATTR_NB_TOGGLE]
+    INTERVAL = timedelta(seconds=conf[CONF_SCAN_INTERVAL])
 
     setup_spa(hass, config)
 

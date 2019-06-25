@@ -11,17 +11,17 @@ _LOGGER = logging.getLogger(__name__)
 class SpaClient:
     def __init__(self, socket):
         self.s = socket
-        self.light = None
-        self.current_temp = None
-        self.hour = None
-        self.minute = None
-        self.heating_mode = ""
-        self.temp_scale = ""
-        self.temp_range = ""
-        self.pump1 = ""
-        self.pump2 = ""
-        self.pump3 = ""
-        self.set_temp = None
+        self.light = 0
+        self.current_temp = 100
+        self.hour = 10
+        self.minute = 0
+        self.heating_mode = "Ready"
+        self.temp_scale = "Farenheit"
+        self.temp_range = "High"
+        self.pump1 = "Off"
+        self.pump2 = "Off"
+        self.pump3 = "Off"
+        self.set_temp = 100
         self.priming = False
         self.time_scale = "12 Hr"
         self.heating = False
@@ -32,15 +32,21 @@ class SpaClient:
     s = None
     ip = None
     l = Lock()
-
+    
     @staticmethod
     def get_socket(host_ip = None):
         if (host_ip):
             SpaClient.ip = host_ip
         if SpaClient.s is None:
             SpaClient.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            SpaClient.s.connect((SpaClient.ip, 4257))
             SpaClient.s.setblocking(0)
+
+        try:
+            SpaClient.s.connect((SpaClient.ip, 4257))
+        except socket.error as e:
+            if e.errno != 115:
+                SpaClient.s.close()
+
         return SpaClient.s
 
     def reconnect_socket():
@@ -121,24 +127,29 @@ class SpaClient:
 
     def read_msg(self):
         SpaClient.l.acquire()
+
         try:
             len_chunk = SpaClient.s.recv(2)
-        except OSError as e:
+        except IOError as e:
+            if e.errno != 11:
+                SpaClient.s = SpaClient.reconnect_socket()
             SpaClient.l.release()
             return False
 
         if len_chunk == b'' or len(len_chunk) == 0:
             return False
+
         length = len_chunk[1]
+
         if int(length) == 0:
             SpaClient.l.release()
             return False
 
         try:
             chunk = SpaClient.s.recv(length)
-        except BaseException as e:
-            _LOGGER.error("Failed to receive: len_chunk: %s, error: %s",
-                         len_chunk, e)
+        except IOError as e:
+            if e.errno != 11:
+                SpaClient.s = SpaClient.reconnect_socket()
             SpaClient.l.release()
             return False
 
@@ -163,7 +174,6 @@ class SpaClient:
         try:
             SpaClient.s.send(message)
         except IOError as e:
-            _LOGGER.error("Lost connection, error: %s", e)
             SpaClient.s = SpaClient.reconnect_socket()
             SpaClient.s.send(message)
 
@@ -183,7 +193,7 @@ class SpaClient:
         self.send_toggle_message(0x11)
         self.light = value
 
-    def set_pump(self, pump_num, value):
+    def set_pump(self, pump_num, value, nb_toggle):
         pump_val = self.pump1
         pump_code = 0x04
         if pump_num == 2:
@@ -195,6 +205,8 @@ class SpaClient:
         if pump_val == value:
             return
         self.send_toggle_message(pump_code)
+        if nb_toggle == 2:
+            self.send_toggle_message(pump_code)
         if pump_num == 1:
             self.pump1 = value
         if pump_num == 2:

@@ -6,7 +6,9 @@ from homeassistant.components.switch import SwitchDevice
 from datetime import timedelta
 
 _LOGGER = logging.getLogger(__name__)
-SCAN_INTERVAL = timedelta(seconds=1)
+SCAN_INTERVAL = my_bwa.INTERVAL
+
+nb_toggle = my_bwa.NB_TOGGLE
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
     """Setup the sensor platform."""
@@ -49,7 +51,7 @@ class SpaPump(SwitchDevice):
         """Instruct the switch to turn on."""
         _LOGGER.info("Spa Pump %s status %s", self._pump_num, self._spa.get_pump(self._pump_num))
         _LOGGER.info("Turning on Spa Pump %s", self._pump_num)
-        self._spa.set_pump(self._pump_num, "High")
+        self._spa.set_pump(self._pump_num, "High", nb_toggle)
 
     def turn_off(self, **kwargs):
         """Instruct the switch to turn off."""
@@ -58,7 +60,7 @@ class SpaPump(SwitchDevice):
             _LOGGER.info("Turning on Spa Pump %s", self._pump_num)
         if self._spa.get_pump(self._pump_num) == "High":
             _LOGGER.info("Turning off Spa Pump %s", self._pump_num)
-        self._spa.set_pump(self._pump_num, "Off")
+        self._spa.set_pump(self._pump_num, "Off", nb_toggle)
 
     def update(self):
         """Fetch new state data for the sensor."""

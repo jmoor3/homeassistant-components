@@ -6,7 +6,7 @@ from homeassistant.components.light import Light
 from datetime import timedelta
 
 _LOGGER = logging.getLogger(__name__)
-SCAN_INTERVAL = timedelta(seconds=1)
+SCAN_INTERVAL = my_bwa.INTERVAL
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
     """Setup the sensor platform."""
