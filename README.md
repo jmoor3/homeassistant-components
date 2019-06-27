@@ -1,12 +1,18 @@
 # Hass.io custom component - SpaClient
 
+## What you need
+
+A Hot Tub Equipped with a Balboa BP System
+bwa™ Wi-Fi Module (50350)
+Reference : http://www.balboawatergroup.com/bwa
+
 ## Needed python module
 
 The ```crc8``` module is automatically installed when first used of this custom component on Hass.io.
 
-## Balboa Hot Tub
+## SpaClient custom component setup
 
-Copy the files from the directories into your homeassistant directory.
+Copy these project files into your Home Assistant ```/config``` directory.
 
 ```
 custom_components/SpaClient/__init__.py
@@ -25,7 +31,8 @@ SpaClient:
      scan_interval: 1      # Poll the devices every x seconds (default = 1), Optional
 ```     
      
-TODOs:
+## TODOs
+
 - Create a ```const.py``` file
 - Introduce asynchronous programming in this custom component
 - Add the programming capacity of the filter cycles
