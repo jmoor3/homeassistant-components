@@ -2,9 +2,9 @@
 
 ## What you need
 
-A Hot Tub Equipped with a Balboa BP System
-bwa™ Wi-Fi Module (50350)
-Reference : http://www.balboawatergroup.com/bwa
+- A Hot Tub Equipped with a Balboa BP System
+- bwa™ Wi-Fi Module (50350)
+- Reference : http://www.balboawatergroup.com/bwa
 
 ## Needed python module
 
