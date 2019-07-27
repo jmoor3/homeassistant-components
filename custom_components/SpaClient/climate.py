@@ -3,7 +3,8 @@ import logging
 # Import the device class from the component that you want to support
 from custom_components import SpaClient
 from homeassistant.components.climate import ClimateDevice
-from homeassistant.components.climate.const import SUPPORT_TARGET_TEMPERATURE
+from homeassistant.components.climate.const import (
+    SUPPORT_TARGET_TEMPERATURE, HVAC_MODE_OFF)
 from homeassistant.const import ATTR_TEMPERATURE, TEMP_FAHRENHEIT
 from homeassistant.util.temperature import convert as convert_temperature
 from datetime import timedelta
@@ -22,11 +23,22 @@ class SpaTemp(ClimateDevice):
     def __init__(self, data):
         """Initialize the sensor."""
         self._spa = data.spa
+        self._current_operation = HVAC_MODE_OFF
 
     @property
     def name(self):
         """Return the name of the sensor."""
         return 'Spa Temperature'
+
+    @property
+    def hvac_mode(self):
+        """Return current HVAC mode."""
+        return self._current_operation
+
+    @property
+    def hvac_modes(self):
+        """Return available HVAC modes."""
+        return []
 
     @property
     def supported_features(self):
