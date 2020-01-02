@@ -38,3 +38,4 @@ SpaClient:
 - Add the programming capacity of the filter cycles
 - Add the time synchronization function
 - Bring more information to the user in case of connect/receive/send issues
+- Animate Climate's hvac_mode variable with the heater status
