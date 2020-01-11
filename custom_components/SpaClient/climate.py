@@ -4,7 +4,7 @@ import logging
 from custom_components import SpaClient
 from homeassistant.components.climate import ClimateDevice
 from homeassistant.components.climate.const import (
-    SUPPORT_TARGET_TEMPERATURE, HVAC_MODE_HEAT_COOL, HVAC_MODE_OFF)
+    SUPPORT_TARGET_TEMPERATURE, HVAC_MODE_HEAT, HVAC_MODE_OFF)
 from homeassistant.const import ATTR_TEMPERATURE, TEMP_CELSIUS, TEMP_FAHRENHEIT
 from homeassistant.util.temperature import convert as convert_temperature
 from datetime import timedelta
@@ -34,7 +34,7 @@ class SpaTemp(ClimateDevice):
     def hvac_mode(self):
         """Return current HVAC mode."""
         if self._spa.get_heating():
-            return HVAC_MODE_HEAT_COOL
+            return HVAC_MODE_HEAT
         return HVAC_MODE_OFF
 
     @property
@@ -64,7 +64,7 @@ class SpaTemp(ClimateDevice):
     def set_hvac_mode(self, hvac_mode):
         """Set new target hvac mode."""
         if self._spa.get_heating():
-            return HVAC_MODE_HEAT_COOL
+            return HVAC_MODE_HEAT
         return HVAC_MODE_OFF
 
     @property
