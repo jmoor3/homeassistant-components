@@ -94,6 +94,9 @@ class SpaClient:
     def get_pump3(self):
         return self.pump3
 
+    def get_heating(self):
+        return self.heating
+
     def get_temp_range(self):
         return self.temp_range
 
