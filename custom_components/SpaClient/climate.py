@@ -12,7 +12,7 @@ from datetime import timedelta
 _LOGGER = logging.getLogger(__name__)
 SCAN_INTERVAL = SpaClient.INTERVAL
 
-SUPPORT_HVAC = [HVAC_MODE_HEAT_COOL, HVAC_MODE_OFF]
+SUPPORT_HVAC = [HVAC_MODE_HEAT, HVAC_MODE_OFF]
 SUPPORT_FLAGS = (SUPPORT_TARGET_TEMPERATURE)
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
