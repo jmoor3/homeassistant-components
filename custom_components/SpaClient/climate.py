@@ -15,10 +15,10 @@ SCAN_INTERVAL = SpaClient.INTERVAL
 SUPPORT_HVAC = [HVAC_MODE_HEAT, HVAC_MODE_OFF]
 SUPPORT_FLAGS = (SUPPORT_TARGET_TEMPERATURE)
 
-def setup_platform(hass, config, add_devices, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup the sensor platform."""
     spa_data = SpaClient.NETWORK
-    add_devices([SpaTemp(spa_data)])
+    async_add_entities([SpaTemp(spa_data)])
 
 class SpaTemp(ClimateDevice):
     def __init__(self, data):
@@ -56,12 +56,12 @@ class SpaTemp(ClimateDevice):
     def target_temperature(self):
         return self._spa.get_set_temp()
 
-    def set_temperature(self, **kwargs):
+    async def async_set_temperature(self, **kwargs):
         _LOGGER.info("Setting Temperature")
         self._spa.send_config_request()
         self._spa.set_temperature(kwargs.get(ATTR_TEMPERATURE))
 
-    def set_hvac_mode(self, hvac_mode):
+    async def async_set_hvac_mode(self, hvac_mode):
         """Set new target hvac mode."""
         if self._spa.get_heating():
             return HVAC_MODE_HEAT
@@ -82,12 +82,12 @@ class SpaTemp(ClimateDevice):
         """Return current operation ie. heat, cool, idle."""
         return "Set Temperature"
 
-    def update(self):
+    async def async_update(self):
         """Fetch new state data for the sensor."""
         self._spa.read_all_msg()
 
-    def turn_off(self):
+    async def async_turn_off(self):
         pass
 
-    def turn_on(self):
+    async def async_turn_on(self):
         pass

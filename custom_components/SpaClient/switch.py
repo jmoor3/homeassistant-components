@@ -10,10 +10,10 @@ SCAN_INTERVAL = SpaClient.INTERVAL
 
 nb_toggle = SpaClient.NB_TOGGLE
 
-def setup_platform(hass, config, add_devices, discovery_info=None):
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup the sensor platform."""
     spa_data = SpaClient.NETWORK
-    add_devices([SpaPump(1, spa_data), SpaPump(2, spa_data), SpaPump(3, spa_data)])
+    async_add_entities([SpaPump(1, spa_data), SpaPump(2, spa_data), SpaPump(3, spa_data)])
 
 class SpaPump(SwitchDevice):
     """Representation of a Sensor."""
@@ -47,13 +47,13 @@ class SpaPump(SwitchDevice):
         """Return true if switch is on."""
         return self._spa.get_pump(self._pump_num) != "Off"
 
-    def turn_on(self, **kwargs):
+    async def async_turn_on(self, **kwargs):
         """Instruct the switch to turn on."""
         _LOGGER.info("Spa Pump %s status %s", self._pump_num, self._spa.get_pump(self._pump_num))
         _LOGGER.info("Turning on Spa Pump %s", self._pump_num)
         self._spa.set_pump(self._pump_num, "High", nb_toggle)
 
-    def turn_off(self, **kwargs):
+    async def async_turn_off(self, **kwargs):
         """Instruct the switch to turn off."""
         _LOGGER.info("Spa Pump %s status %s", self._pump_num, self._spa.get_pump(self._pump_num))
         if self._spa.get_pump(self._pump_num) == "Low":
@@ -62,6 +62,6 @@ class SpaPump(SwitchDevice):
             _LOGGER.info("Turning off Spa Pump %s", self._pump_num)
         self._spa.set_pump(self._pump_num, "Off", nb_toggle)
 
-    def update(self):
+    async def async_update(self):
         """Fetch new state data for the sensor."""
         self._spa.read_all_msg()
