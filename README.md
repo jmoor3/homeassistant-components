@@ -16,6 +16,8 @@ pip install crc8
 
 ## Balboa Hot Tub
 
+**Use this fork, it is more up to date and has better functionality support - https://github.com/plmilord/Hass.io-custom-component-SpaClient**
+
 Adds Balboa Hot Tub support. Copy the files from the directories into your homeassistant directory.
 
 ```
