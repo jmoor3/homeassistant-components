@@ -6,10 +6,6 @@
 - bwa™ Wi-Fi Module (50350)
 - Reference : http://www.balboawatergroup.com/bwa
 
-## Needed python module
-
-The ```crc8``` module is automatically installed when first used of this custom component on Hass.io.
-
 ## SpaClient custom component setup
 
 1-Copy these project files into your Home Assistant ```/config``` directory.
@@ -35,6 +31,9 @@ SpaClient:
 
 4-Restart your Hass.io. Enjoy!
 
+## Needed python module
+
+The ```crc8``` module is automatically installed when first used of this custom component on Hass.io.
 
 ## TODOs
 
