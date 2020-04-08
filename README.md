@@ -35,9 +35,12 @@ SpaClient:
 
 The ```crc8``` module is automatically installed when first used of this custom component on Hass.io.
 
+
 ## TODOs
 
 - Create a ```const.py``` file
-- Add the programming capacity of the filter cycles
-- Add the time synchronization function
+- Add an automatic time synchronization function
+- Add a switch to toggle the heating mode (Ready/Rest)
+- Add a switch to toggle the temperature range (Low/High)
+- Add the programming capacity of the filtering cycles
 - Bring more information to the user in case of connect/receive/send issues
