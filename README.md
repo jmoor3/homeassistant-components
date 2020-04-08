@@ -35,7 +35,6 @@ SpaClient:
 
 The ```crc8``` module is automatically installed when first used of this custom component on Hass.io.
 
-
 ## TODOs
 
 - Create a ```const.py``` file
