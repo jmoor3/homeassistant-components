@@ -1,4 +1,4 @@
-# Hass.io custom component - SpaClient
+# Hass.io custom component - Spa Client
 
 ## What you need
 
@@ -6,22 +6,22 @@
 - bwa™ Wi-Fi Module (50350)
 - Reference : http://www.balboawatergroup.com/bwa
 
-## SpaClient custom component setup
+## Custom component setup
 
 1-Copy these project files into your Home Assistant ```/config``` directory.
 
 ```
-custom_components/SpaClient/__init__.py
-custom_components/SpaClient/climate.py
-custom_components/SpaClient/light.py
-custom_components/SpaClient/manifest.json
-custom_components/SpaClient/spaclient.py
-custom_components/SpaClient/switch.py
+custom_components/spaclient/__init__.py
+custom_components/spaclient/climate.py
+custom_components/spaclient/light.py
+custom_components/spaclient/manifest.json
+custom_components/spaclient/spaclient.py
+custom_components/spaclient/switch.py
 ```
 
 2-Edit congifuration.yaml file entry:
 ```
-SpaClient:
+spaclient:
      spa_ip: 192.168.2.150 # Spa IP-adress, Required
      nb_toggle: 1          # 1 or 2 toggle to action the pumps (default = 1), Optional
      scan_interval: 1      # Poll the devices every x seconds (default = 1), Optional
@@ -43,3 +43,4 @@ The ```crc8``` module is automatically installed when first used of this custom 
 - Add a switch to toggle the temperature range (Low/High)
 - Add the programming capacity of the filtering cycles
 - Bring more information to the user in case of connect/receive/send issues
+- Celsius vs Fahrenheit use issue
