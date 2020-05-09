@@ -75,7 +75,9 @@ class SpaTemp(ClimateDevice):
     @property
     def temperature_unit(self):
         """Return the unit of measurement used by the platform."""
-        return TEMP_FAHRENHEIT
+        if self._spa.temp_scale == "Farenheit":
+            return TEMP_FAHRENHEIT
+        return TEMP_CELSIUS
 
     @property
     def current_operation(self):
