@@ -68,6 +68,11 @@ class SpaTemp(ClimateDevice):
         return HVAC_MODE_OFF
 
     @property
+    def min_temp(self):
+        """Return the maximum temperature."""
+        return convert_temperature(80, TEMP_FAHRENHEIT, self.temperature_unit)
+
+    @property
     def max_temp(self):
         """Return the maximum temperature."""
         return convert_temperature(104, TEMP_FAHRENHEIT, self.temperature_unit)
