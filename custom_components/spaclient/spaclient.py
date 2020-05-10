@@ -5,6 +5,8 @@ import time
 
 # Import the device class from the component that you want to support
 from threading import Lock
+from homeassistant.const import ATTR_TEMPERATURE, TEMP_CELSIUS, TEMP_FAHRENHEIT
+from homeassistant.util.temperature import convert as convert_temperature
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -61,7 +63,7 @@ class spaclient:
         self.heating_mode = \
             ("Ready", "Rest", "Ready in Rest")[byte_array[5]]
         flag3 = byte_array[9]
-        self.temp_scale = "Farenheit" if (flag3 & 0x01 == 0) else "Celcius"
+        self.temp_scale = "Fahrenheit" if (flag3 & 0x01 == 0) else "Celsius"
         self.time_scale = "12 Hr" if (flag3 & 0x02 == 0) else "24 Hr"
         flag4 = byte_array[10]
         self.heating = flag4 & 0x30
@@ -73,6 +75,9 @@ class spaclient:
         self.circ_pump = byte_array[13] & 0x02 == 1
         self.light = byte_array[14] & 0x03 == 0x03
         self.set_temp = byte_array[20]
+        if self.temp_scale == "Celsius":
+            self.current_temp = convert_temperature(self.current_temp / 2, TEMP_CELSIUS, TEMP_FAHRENHEIT)
+            self.set_temp = convert_temperature(self.set_temp / 2, TEMP_CELSIUS, TEMP_FAHRENHEIT)
 
     def get_set_temp(self):
         return self.set_temp
@@ -188,6 +193,8 @@ class spaclient:
 
     def set_temperature(self, temp):
         self.set_temp = int(temp)
+        if self.temp_scale == "Celsius":
+            temp = convert_temperature(temp, TEMP_FAHRENHEIT, TEMP_CELSIUS) * 2
         self.send_message(b'\x0a\xbf\x20', bytes([int(temp)]))
 
     def set_light(self, value):
