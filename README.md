@@ -43,4 +43,3 @@ The ```crc8``` module is automatically installed when first used of this custom 
 - Add a switch to toggle the temperature range (Low/High)
 - Add the programming capacity of the filtering cycles
 - Bring more information to the user in case of connect/receive/send issues
-- Celsius vs Fahrenheit use issue
