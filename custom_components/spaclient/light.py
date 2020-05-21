@@ -2,7 +2,7 @@ import logging
 
 # Import the device class from the component that you want to support
 from custom_components import spaclient
-from homeassistant.components.light import Light
+from homeassistant.components.light import LightEntity
 from datetime import timedelta
 
 _LOGGER = logging.getLogger(__name__)
@@ -13,7 +13,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     spa_data = spaclient.NETWORK
     async_add_entities([SpaLight(spa_data)])
 
-class SpaLight(Light):
+class SpaLight(LightEntity):
     """Representation of a Sensor."""
     def __init__(self, data):
         """Initialize the sensor."""

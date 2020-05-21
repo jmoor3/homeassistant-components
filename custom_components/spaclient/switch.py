@@ -2,7 +2,7 @@ import logging
 
 # Import the device class from the component that you want to support
 from custom_components import spaclient
-from homeassistant.components.switch import SwitchDevice
+from homeassistant.components.switch import SwitchEntity
 from datetime import timedelta
 
 _LOGGER = logging.getLogger(__name__)
@@ -15,7 +15,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     spa_data = spaclient.NETWORK
     async_add_entities([SpaPump(1, spa_data), SpaPump(2, spa_data), SpaPump(3, spa_data)])
 
-class SpaPump(SwitchDevice):
+class SpaPump(SwitchEntity):
     """Representation of a Sensor."""
     def __init__(self, pump_num, data):
         """Initialize the sensor."""

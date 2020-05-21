@@ -2,7 +2,7 @@ import logging
 
 # Import the device class from the component that you want to support
 from custom_components import spaclient
-from homeassistant.components.climate import ClimateDevice
+from homeassistant.components.climate import ClimateEntity
 from homeassistant.components.climate.const import (
     SUPPORT_TARGET_TEMPERATURE, HVAC_MODE_HEAT, HVAC_MODE_OFF)
 from homeassistant.const import ATTR_TEMPERATURE, TEMP_FAHRENHEIT
@@ -20,7 +20,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     spa_data = spaclient.NETWORK
     async_add_entities([SpaTemp(spa_data)])
 
-class SpaTemp(ClimateDevice):
+class SpaTemp(ClimateEntity):
     def __init__(self, data):
         """Initialize the sensor."""
         self._spa = data.spa
