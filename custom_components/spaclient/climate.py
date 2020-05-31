@@ -15,19 +15,23 @@ SCAN_INTERVAL = spaclient.INTERVAL
 SUPPORT_HVAC = [HVAC_MODE_HEAT, HVAC_MODE_OFF]
 SUPPORT_FLAGS = (SUPPORT_TARGET_TEMPERATURE)
 
+
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup the sensor platform."""
     spa_data = spaclient.NETWORK
     async_add_entities([SpaTemp(spa_data)])
 
+
 class SpaTemp(ClimateEntity):
+    """Representation of a Spa climate."""
+
     def __init__(self, data):
-        """Initialize the sensor."""
+        """Initialize the device."""
         self._spa = data.spa
 
     @property
     def name(self):
-        """Return the name of the sensor."""
+        """Return the name of the device."""
         return 'Spa Temperature'
 
     @property

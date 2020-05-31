@@ -2,7 +2,6 @@
   "domain": "spaclient",
   "name": "Spa Client",
   "documentation": "https://github.com/plmilord/Hass.io-custom-component-spaclient/blob/master/README.md",
-  "dependencies": [],
-  "codeowners": ["jmoor3/plmilord"],
+  "codeowners": ["jmoor3", "plmilord"],
   "requirements": ["crc8==0.0.5"]
 }

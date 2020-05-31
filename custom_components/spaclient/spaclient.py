@@ -17,7 +17,7 @@ class spaclient:
         self.current_temp = 100
         self.hour = 10
         self.minute = 0
-        self.heating_mode = "Ready"
+        self.heat_mode = "Ready"
         self.temp_scale = "Farenheit"
         self.temp_range = "High"
         self.pump1 = "Off"
@@ -56,12 +56,11 @@ class spaclient:
         return spaclient.get_socket()
 
     def handle_status_update(self, byte_array):
-        self.current_temp = byte_array[2]
         self.priming = byte_array[1] & 0x01 == 1
+        self.current_temp = byte_array[2]
         self.hour = byte_array[3]
         self.minute = byte_array[4]
-        self.heating_mode = \
-            ("Ready", "Rest", "Ready in Rest")[byte_array[5]]
+        self.heat_mode = ("Ready", "Rest", "Ready in Rest")[byte_array[5]]
         flag3 = byte_array[9]
         self.temp_scale = "Fahrenheit" if (flag3 & 0x01 == 0) else "Celsius"
         self.time_scale = "12 Hr" if (flag3 & 0x02 == 0) else "24 Hr"
@@ -102,6 +101,9 @@ class spaclient:
     def get_heating(self):
         return self.heating
 
+    def get_heat_mode(self):
+        return self.heat_mode
+
     def get_temp_range(self):
         return self.temp_range
 
@@ -119,7 +121,7 @@ class spaclient:
         s = s + "Temp: %d, Set Temp: %d, Time: %d:%02d\n" % \
             (self.current_temp, self.set_temp, self.hour, self.minute)
         s = s + "Priming: %s, Heating Mode: %s Temp Scale: %s, Time Scale: %s\n" % \
-            (self.priming, self.heating_mode, self.temp_scale, self.time_scale)
+            (self.priming, self.heat_mode, self.temp_scale, self.time_scale)
         s = s + "Heating: %s, Temp Range: %s, Pump1: %s, Pump2: %s, Pump3: %s, Circ Pump: %s, Light: %s\n" % \
             (self.heating, self.temp_range, self.pump1, self.pump2, self.pump3, self.circ_pump, self.light)
         return s
@@ -223,3 +225,15 @@ class spaclient:
             self.pump2 = value
         if pump_num == 3:
             self.pump3 = value
+
+    def set_heat_mode(self, value):
+        if self.heat_mode == value:
+            return
+        self.send_toggle_message(0x51)
+        self.heat_mode = value
+
+    def set_temp_range(self, value):
+        if self.temp_range == value:
+            return
+        self.send_toggle_message(0x50)
+        self.temp_range = value

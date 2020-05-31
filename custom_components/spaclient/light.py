@@ -8,20 +8,23 @@ from datetime import timedelta
 _LOGGER = logging.getLogger(__name__)
 SCAN_INTERVAL = spaclient.INTERVAL
 
+
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup the sensor platform."""
     spa_data = spaclient.NETWORK
     async_add_entities([SpaLight(spa_data)])
 
+
 class SpaLight(LightEntity):
-    """Representation of a Sensor."""
+    """Representation of a Spa light."""
+
     def __init__(self, data):
-        """Initialize the sensor."""
+        """Initialize the device."""
         self._spa = data.spa
 
     @property
     def name(self):
-        """Return the name of the sensor."""
+        """Return the name of the device."""
         return 'Spa Light'
 
     @property
